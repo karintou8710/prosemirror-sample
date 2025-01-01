@@ -3,6 +3,7 @@ import { EditorView } from "prosemirror-view";
 import { schema } from "./libs/schema";
 import { isActive } from "./helper/isActive";
 import { fileToBase64 } from "../utils";
+import { insertImage } from "./helper/insertImage";
 
 type Props = {
   view: EditorView;
@@ -16,6 +17,7 @@ export default function Menu({ view }: Props) {
   const isH1Active = isActive(view.state, schema.nodes.heading, { level: 1 });
   const isH2Active = isActive(view.state, schema.nodes.heading, { level: 2 });
   const isH3Active = isActive(view.state, schema.nodes.heading, { level: 3 });
+  const isImageActive = isActive(view.state, schema.nodes.image);
 
   return (
     <div>
@@ -56,17 +58,9 @@ export default function Menu({ view }: Props) {
             if (!file) return;
 
             const image = await fileToBase64(file);
-            const tr = view.state.tr;
-            const imageNode = schema.nodes.image.create({
-              src: image,
-            });
-            tr.replaceWith(
-              view.state.selection.from,
-              view.state.selection.to,
-              imageNode
-            );
-            view.dispatch(tr);
+            insertImage(view, image, view.state.selection.from);
           }}
+          style={{ background: isImageActive ? "orange" : "" }}
         />
       </div>
     </div>

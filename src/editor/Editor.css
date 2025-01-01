@@ -1,3 +1,18 @@
 .ProseMirror:focus {
   outline: none;
 }
+
+.ProseMirror {
+  padding: 1rem 0;
+
+  img {
+    width: 100%;
+    display: block;
+    margin: auto;
+    margin: 1rem 0;
+  }
+
+  .ProseMirror-selectednode {
+    outline: 5px solid #f97316;
+  }
+}

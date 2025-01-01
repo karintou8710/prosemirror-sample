@@ -7,6 +7,8 @@ import useEditor from "./hooks/useEditor";
 
 import "prosemirror-view/style/prosemirror.css";
 import "prosemirror-gapcursor/style/gapcursor.css";
+import "@fontsource/noto-sans-jp/400.css";
+import "@fontsource/noto-sans-jp/500.css";
 import "./Editor.css";
 
 type Props = {
@@ -23,12 +25,6 @@ export default function Editor({ initialHtml, onChange }: Props) {
     <div className={styles.container}>
       {view && <Menu view={view} />}
       <div className={styles.editor} ref={ref} />
-      {view && (
-        <div>
-          <p>type: {getCurrentNode(view)?.type.name}</p>
-          <p>level: {getCurrentNode(view)?.attrs.level}</p>
-        </div>
-      )}
     </div>
   );
 }

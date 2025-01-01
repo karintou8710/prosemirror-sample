@@ -8,9 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@fontsource/noto-sans-jp':
+        specifier: ^5.1.1
+        version: 5.1.1
       prosemirror-commands:
         specifier: ^1.6.2
         version: 1.6.2
+      prosemirror-dropcursor:
+        specifier: ^1.8.1
+        version: 1.8.1
       prosemirror-gapcursor:
         specifier: ^1.3.2
         version: 1.3.2
@@ -335,6 +341,9 @@ packages:
   '@eslint/plugin-kit@0.2.4':
     resolution: {integrity: sha512-zSkKow6H5Kdm0ZUQUB2kV5JIXqoG0+uH5YADhaEHswm664N9Db8dXSi0nMJpacpMf+MyyglF1vnZohpEg5yUtg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@fontsource/noto-sans-jp@5.1.1':
+    resolution: {integrity: sha512-PXk7mDjiaW99xU85IIxRGekzxLz91h2usk0rfDXSVwds9Nuo4sdlDUEE8PQ1P3VLnV00FsCHfSH54uR217VXpg==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -932,6 +941,9 @@ packages:
   prosemirror-commands@1.6.2:
     resolution: {integrity: sha512-0nDHH++qcf/BuPLYvmqZTUUsPJUCPBUXt0J1ErTcDIS369CTp773itzLGIgIXG4LJXOlwYCr44+Mh4ii6MP1QA==}
 
+  prosemirror-dropcursor@1.8.1:
+    resolution: {integrity: sha512-M30WJdJZLyXHi3N8vxN6Zh5O8ZBbQCz0gURTfPmTIBNQ5pxrdU7A58QkNqfa98YEjSAL1HUyyU34f6Pm5xBSGw==}
+
   prosemirror-gapcursor@1.3.2:
     resolution: {integrity: sha512-wtjswVBd2vaQRrnYZaBCbyDqr232Ed4p2QPtRIUK5FuqHYKGWkEwl08oQM4Tw7DOR0FsasARV5uJFvMZWxdNxQ==}
 
@@ -1350,6 +1362,8 @@ snapshots:
   '@eslint/plugin-kit@0.2.4':
     dependencies:
       levn: 0.4.1
+
+  '@fontsource/noto-sans-jp@5.1.1': {}
 
   '@humanfs/core@0.19.1': {}
 
@@ -1941,6 +1955,12 @@ snapshots:
       prosemirror-model: 1.24.1
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.10.2
+
+  prosemirror-dropcursor@1.8.1:
+    dependencies:
+      prosemirror-state: 1.4.3
+      prosemirror-transform: 1.10.2
+      prosemirror-view: 1.37.1
 
   prosemirror-gapcursor@1.3.2:
     dependencies:

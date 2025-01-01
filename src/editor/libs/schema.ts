@@ -29,7 +29,10 @@ export const schema = new Schema({
     },
     image: {
       group: "block",
-      attrs: { src: { default: "", validate: "string" } },
+      attrs: {
+        src: { default: "", validate: "string" },
+        alt: { default: "", validate: "string" },
+      },
       atom: true,
       draggable: true,
       parseDOM: [
@@ -38,12 +41,13 @@ export const schema = new Schema({
           getAttrs(dom) {
             return {
               src: dom.getAttribute("src"),
+              alt: dom.getAttribute("alt"),
             };
           },
         },
       ],
       toDOM(node) {
-        return ["img", { src: node.attrs.src }];
+        return ["img", { src: node.attrs.src, alt: node.attrs.alt }];
       },
     },
     text: {
