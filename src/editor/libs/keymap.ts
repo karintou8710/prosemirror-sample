@@ -5,6 +5,7 @@ import { baseKeymap, chainCommands } from "prosemirror-commands";
 import { keymap } from "prosemirror-keymap";
 import { redo, undo } from "prosemirror-history";
 import { backspaceImage, enterImage } from "../plugins/image";
+import { splitListItem, sinkListItem } from "prosemirror-schema-list";
 
 export function backspaceDefault(
   state: EditorState,
@@ -24,7 +25,11 @@ export function backspaceDefault(
 
 export function buildKeymap() {
   return keymap({
-    Enter: chainCommands(enterImage, baseKeymap.Enter),
+    Enter: chainCommands(
+      splitListItem(schema.nodes.list_item),
+      enterImage,
+      baseKeymap.Enter
+    ),
     Backspace: chainCommands(
       backspaceDefault,
       backspaceImage,
@@ -33,5 +38,6 @@ export function buildKeymap() {
     "Mod-z": undo,
     "Mod-y": redo,
     "Mod-Shift-z": redo,
+    Tab: sinkListItem(schema.nodes.list_item),
   });
 }

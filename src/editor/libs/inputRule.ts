@@ -2,6 +2,7 @@ import {
   InputRule,
   inputRules,
   textblockTypeInputRule,
+  wrappingInputRule,
 } from "prosemirror-inputrules";
 import { schema } from "./schema";
 
@@ -18,6 +19,15 @@ export function buildInputRule() {
       tr.replaceWith(start - 1, end, schema.nodes.hr.create());
       return tr;
     })
+  );
+  rules.push(wrappingInputRule(/^\s*([-+*])\s$/, schema.nodes.bullet_list));
+  rules.push(
+    wrappingInputRule(
+      /^(\d+)\.\s$/,
+      schema.nodes.ordered_list,
+      (match) => ({ order: +match[1] }),
+      (match, node) => node.childCount + node.attrs.order == +match[1]
+    )
   );
 
   return inputRules({ rules });
