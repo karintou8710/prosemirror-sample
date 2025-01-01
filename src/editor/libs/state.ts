@@ -4,8 +4,8 @@ import { buildKeymap } from "./keymap";
 import { history } from "prosemirror-history";
 import { buildInputRule } from "./inputRule";
 import { DOMParser } from "prosemirror-model";
-import { gapCursor } from "prosemirror-gapcursor";
 import { dropCursor } from "prosemirror-dropcursor";
+import buildImagePlugin from "../plugins/image";
 
 const createDoc = (html: string) => {
   const element = document.createElement("div");
@@ -22,8 +22,8 @@ export function createState(html: string) {
       history(),
       buildKeymap(),
       buildInputRule(),
-      gapCursor(),
       dropCursor(),
+      buildImagePlugin(),
     ],
   });
 }

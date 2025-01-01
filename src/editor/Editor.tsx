@@ -2,7 +2,6 @@ import { useRef } from "react";
 
 import styles from "./Editor.module.css";
 import Menu from "./Menu";
-import { getCurrentNode } from "./helper/getCurrentNode";
 import useEditor from "./hooks/useEditor";
 
 import "prosemirror-view/style/prosemirror.css";

@@ -5,14 +5,30 @@
 .ProseMirror {
   padding: 1rem 0;
 
-  img {
+  .ProseMirror-selectednode {
+    outline: none;
+  }
+
+  figure > img {
     width: 100%;
     display: block;
     margin: auto;
     margin: 1rem 0;
   }
 
-  .ProseMirror-selectednode {
+  figure.ProseMirror-selectednode > img {
+    outline: 5px solid #f97316;
+  }
+
+  hr {
+    margin: 2rem 0;
+  }
+
+  figcaption {
+    text-align: center;
+  }
+
+  p.ProseMirror-selectednode {
     outline: 5px solid #f97316;
   }
 }

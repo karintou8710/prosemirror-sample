@@ -27,14 +27,25 @@ export const schema = new Schema({
         return [`h${node.attrs.level}`, 0];
       },
     },
-    image: {
+    figure: {
+      content: "(image caption)?",
       group: "block",
+      parseDOM: [{ tag: "figure" }],
+      draggable: true,
+      selectable: true,
+      toDOM() {
+        return ["figure", { draggable: true }, 0];
+      },
+    },
+    image: {
+      group: "image",
       attrs: {
-        src: { default: "", validate: "string" },
-        alt: { default: "", validate: "string" },
+        src: { validate: "string" },
+        alt: { validate: "string", default: null },
       },
       atom: true,
-      draggable: true,
+      draggable: false,
+      selectable: false,
       parseDOM: [
         {
           tag: "img[src]",
@@ -47,7 +58,29 @@ export const schema = new Schema({
         },
       ],
       toDOM(node) {
-        return ["img", { src: node.attrs.src, alt: node.attrs.alt }];
+        return [
+          "img",
+          { src: node.attrs.src, alt: node.attrs.alt, draggable: false },
+        ];
+      },
+    },
+    caption: {
+      content: "inline*",
+      group: "caption",
+      parseDOM: [{ tag: "figcaption" }],
+      toDOM() {
+        return ["figcaption", 0];
+      },
+    },
+    hr: {
+      group: "block",
+      parseDOM: [
+        {
+          tag: "hr",
+        },
+      ],
+      toDOM() {
+        return ["hr"];
       },
     },
     text: {

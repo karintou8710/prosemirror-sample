@@ -4,6 +4,7 @@ import { setBlockType } from "prosemirror-commands";
 import { baseKeymap, chainCommands } from "prosemirror-commands";
 import { keymap } from "prosemirror-keymap";
 import { redo, undo } from "prosemirror-history";
+import { backspaceImage, enterImage } from "../plugins/image";
 
 export function backspaceDefault(
   state: EditorState,
@@ -23,8 +24,12 @@ export function backspaceDefault(
 
 export function buildKeymap() {
   return keymap({
-    Enter: baseKeymap.Enter,
-    Backspace: chainCommands(backspaceDefault, baseKeymap.Backspace),
+    Enter: chainCommands(enterImage, baseKeymap.Enter),
+    Backspace: chainCommands(
+      backspaceDefault,
+      backspaceImage,
+      baseKeymap.Backspace
+    ),
     "Mod-z": undo,
     "Mod-y": redo,
     "Mod-Shift-z": redo,

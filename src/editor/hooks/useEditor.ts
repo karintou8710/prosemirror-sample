@@ -27,27 +27,6 @@ export default function useEditor(
         forceUpdate();
       },
       handleDOMEvents: {
-        dragstart(view, event) {
-          const node = event.target as HTMLElement;
-          document.querySelectorAll(".drag-image").forEach((e) => e.remove());
-
-          if (node.tagName === "IMG") {
-            const width = node.clientWidth;
-            const img = node.cloneNode() as HTMLImageElement;
-            img.style.opacity = "0.6";
-            img.style.width = `${width}px`;
-            const div = document.createElement("div");
-            div.appendChild(img);
-            div.style.position = "absolute";
-            div.style.top = "0px";
-            div.style.left = "-2000px";
-            div.className = "drag-image";
-            document.body.appendChild(div);
-            event.dataTransfer?.setDragImage(div, event.offsetX, event.offsetY);
-          }
-
-          return false;
-        },
         drop(view, event) {
           if (event.dataTransfer && event.dataTransfer.files.length === 1) {
             event.preventDefault();
