@@ -8,3 +8,22 @@
   width: 600px;
   margin: 2rem auto;
 }
+
+.bubbleMenu {
+  display: flex;
+
+  button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid black;
+  }
+
+  button:nth-child(n + 2) {
+    border-left: none;
+  }
+}
