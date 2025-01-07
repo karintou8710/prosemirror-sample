@@ -95,6 +95,12 @@ const marks = {
       return ["b", 0];
     },
   } as MarkSpec,
+  italic: {
+    parseDOM: [{ tag: "i" }],
+    toDOM() {
+      return ["i", 0];
+    },
+  } as MarkSpec,
 } as const;
 
 export const basicSchema = new Schema({

@@ -15,12 +15,14 @@ export default function Menu({ view }: Props) {
   const setH2 = setBlockType(schema.nodes.heading, { level: 2 });
   const setH3 = setBlockType(schema.nodes.heading, { level: 3 });
   const toggleBold = toggleMark(schema.marks.bold);
+  const toggleItalic = toggleMark(schema.marks.italic);
 
   const isH1Active = isActive(view.state, schema.nodes.heading, { level: 1 });
   const isH2Active = isActive(view.state, schema.nodes.heading, { level: 2 });
   const isH3Active = isActive(view.state, schema.nodes.heading, { level: 3 });
   const isImageActive = isActive(view.state, schema.nodes.image);
   const isBoldActive = isMarkActive(view.state, schema.marks.bold);
+  const isItalicActive = isMarkActive(view.state, schema.marks.italic);
 
   return (
     <div>
@@ -73,6 +75,15 @@ export default function Menu({ view }: Props) {
           style={{ background: isBoldActive ? "orange" : "" }}
         >
           B
+        </button>
+        <button
+          onClick={() => {
+            toggleItalic(view.state, view.dispatch);
+            view.focus();
+          }}
+          style={{ background: isItalicActive ? "orange" : "" }}
+        >
+          I
         </button>
       </div>
     </div>
