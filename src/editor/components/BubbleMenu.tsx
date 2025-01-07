@@ -1,34 +1,34 @@
 import { EditorView } from "prosemirror-view";
-import { ReactNode, useEffect, useRef } from "react";
-import { bubbleMenu } from "../plugins/bubbleMenu";
-import { PluginKey } from "prosemirror-state";
-import { registerPlugin } from "../helper/registerPlugin";
-import unregisterPlugin from "../helper/unregisterPlugin";
+import BubbleMenuBase from "./BubbleMenuBase";
+
+import styles from "./BubbleMenu.module.css";
+import { toggleMark } from "prosemirror-commands";
+import { schema } from "../libs/schema";
+import isMarkActive from "../helper/isMarkActive";
 
 type Props = {
   view: EditorView;
-  children?: ReactNode;
-  className?: string;
 };
 
-export default function BubbleMenu({ view, className, children }: Props) {
-  const ref = useRef(null);
+export default function BubbleMenu({ view }: Props) {
+  const toggleBold = toggleMark(schema.marks.bold);
 
-  useEffect(() => {
-    if (!ref.current || view.isDestroyed) return;
-
-    const key = new PluginKey("bubbleMenu");
-    const plugin = bubbleMenu(key, ref.current);
-    registerPlugin(view, plugin);
-
-    return () => {
-      unregisterPlugin(view, key);
-    };
-  }, [view]);
+  const isBoldActive = isMarkActive(view.state, schema.marks.bold);
 
   return (
-    <div ref={ref} className={className}>
-      {children}
-    </div>
+    <BubbleMenuBase view={view} className={styles.bubbleMenu}>
+      <button
+        onClick={() => {
+          toggleBold(view.state, view.dispatch);
+          view.focus();
+        }}
+        style={{ background: isBoldActive ? "orange" : "" }}
+      >
+        B
+      </button>
+      <button>I</button>
+      <button>C</button>
+      <button>L</button>
+    </BubbleMenuBase>
   );
 }

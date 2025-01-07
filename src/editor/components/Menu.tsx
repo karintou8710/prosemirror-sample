@@ -1,9 +1,10 @@
-import { setBlockType } from "prosemirror-commands";
+import { setBlockType, toggleMark } from "prosemirror-commands";
 import { EditorView } from "prosemirror-view";
-import { schema } from "./libs/schema";
-import { isActive } from "./helper/isActive";
-import { fileToBase64 } from "../utils";
-import { insertImage } from "./helper/insertImage";
+import { schema } from "../libs/schema";
+import { isActive } from "../helper/isActive";
+import { fileToBase64 } from "../../utils";
+import { insertImage } from "../helper/insertImage";
+import isMarkActive from "../helper/isMarkActive";
 
 type Props = {
   view: EditorView;
@@ -13,11 +14,13 @@ export default function Menu({ view }: Props) {
   const setH1 = setBlockType(schema.nodes.heading, { level: 1 });
   const setH2 = setBlockType(schema.nodes.heading, { level: 2 });
   const setH3 = setBlockType(schema.nodes.heading, { level: 3 });
+  const toggleBold = toggleMark(schema.marks.bold);
 
   const isH1Active = isActive(view.state, schema.nodes.heading, { level: 1 });
   const isH2Active = isActive(view.state, schema.nodes.heading, { level: 2 });
   const isH3Active = isActive(view.state, schema.nodes.heading, { level: 3 });
   const isImageActive = isActive(view.state, schema.nodes.image);
+  const isBoldActive = isMarkActive(view.state, schema.marks.bold);
 
   return (
     <div>
@@ -62,6 +65,15 @@ export default function Menu({ view }: Props) {
           }}
           style={{ background: isImageActive ? "orange" : "" }}
         />
+        <button
+          onClick={() => {
+            toggleBold(view.state, view.dispatch);
+            view.focus();
+          }}
+          style={{ background: isBoldActive ? "orange" : "" }}
+        >
+          B
+        </button>
       </div>
     </div>
   );

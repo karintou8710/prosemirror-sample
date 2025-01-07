@@ -9,6 +9,7 @@ import "@fontsource/noto-sans-jp/400.css";
 import "@fontsource/noto-sans-jp/500.css";
 import "./Editor.css";
 import BubbleMenu from "./components/BubbleMenu";
+import Menu from "./components/Menu";
 
 type Props = {
   initialHtml: string;
@@ -22,15 +23,9 @@ export default function Editor({ initialHtml, onChange }: Props) {
 
   return (
     <div className={styles.container}>
+      {view && <Menu view={view} />}
       <div className={styles.editor} ref={ref} />
-      {view && (
-        <BubbleMenu view={view} className={styles.bubbleMenu}>
-          <button>B</button>
-          <button>I</button>
-          <button>C</button>
-          <button>L</button>
-        </BubbleMenu>
-      )}
+      {view && <BubbleMenu view={view} />}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { NodeSpec, Schema } from "prosemirror-model";
+import { MarkSpec, NodeSpec, Schema } from "prosemirror-model";
 import { addListNodes } from "prosemirror-schema-list";
 
 const nodes = {
@@ -88,10 +88,21 @@ const nodes = {
   } as NodeSpec,
 } as const;
 
+const marks = {
+  bold: {
+    parseDOM: [{ tag: "b" }],
+    toDOM() {
+      return ["b", 0];
+    },
+  } as MarkSpec,
+} as const;
+
 export const basicSchema = new Schema({
-  nodes: nodes,
+  nodes,
+  marks,
 });
 
 export const schema = new Schema({
   nodes: addListNodes(basicSchema.spec.nodes, "paragraph block*", "block"),
+  marks: basicSchema.spec.marks,
 });
