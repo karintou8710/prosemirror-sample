@@ -6,6 +6,9 @@ import { fileToBase64 } from "../../utils";
 import { insertImage } from "../helper/insertImage";
 import isMarkActive from "../helper/isMarkActive";
 
+import styles from "./Menu.module.css";
+import { FileInput } from "./FileInput";
+
 type Props = {
   view: EditorView;
 };
@@ -20,18 +23,18 @@ export default function Menu({ view }: Props) {
   const isH1Active = isActive(view.state, schema.nodes.heading, { level: 1 });
   const isH2Active = isActive(view.state, schema.nodes.heading, { level: 2 });
   const isH3Active = isActive(view.state, schema.nodes.heading, { level: 3 });
-  const isImageActive = isActive(view.state, schema.nodes.image);
   const isBoldActive = isMarkActive(view.state, schema.marks.bold);
   const isItalicActive = isMarkActive(view.state, schema.marks.italic);
 
   return (
     <div>
-      <div>
+      <div className={styles.menuBlock}>
         <button
           onClick={() => {
             setH1(view.state, view.dispatch);
             view.focus();
           }}
+          className={styles.toggle}
           style={{ background: isH1Active ? "orange" : "" }}
         >
           h1
@@ -41,6 +44,7 @@ export default function Menu({ view }: Props) {
             setH2(view.state, view.dispatch);
             view.focus();
           }}
+          className={styles.toggle}
           style={{ background: isH2Active ? "orange" : "" }}
         >
           h2
@@ -50,28 +54,26 @@ export default function Menu({ view }: Props) {
             setH3(view.state, view.dispatch);
             view.focus();
           }}
+          className={styles.toggle}
           style={{ background: isH3Active ? "orange" : "" }}
         >
           h3
         </button>
-      </div>
-      <div style={{ marginTop: "1rem" }}>
-        <input
-          type="file"
-          onChange={async (e) => {
-            const file = e.target.files?.[0];
-            if (!file) return;
-
+        <FileInput
+          onChange={async (file) => {
             const image = await fileToBase64(file);
             insertImage(view, image, view.state.selection.from);
           }}
-          style={{ background: isImageActive ? "orange" : "" }}
+          className={styles.fileInput}
         />
+      </div>
+      <div className={styles.menuBlock} style={{ marginTop: "1rem" }}>
         <button
           onClick={() => {
             toggleBold(view.state, view.dispatch);
             view.focus();
           }}
+          className={styles.toggle}
           style={{ background: isBoldActive ? "orange" : "" }}
         >
           B
@@ -81,6 +83,7 @@ export default function Menu({ view }: Props) {
             toggleItalic(view.state, view.dispatch);
             view.focus();
           }}
+          className={styles.toggle}
           style={{ background: isItalicActive ? "orange" : "" }}
         >
           I
