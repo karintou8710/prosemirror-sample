@@ -27,5 +27,7 @@ export default function isMarkActive(
     if (markType.isInSet(node.marks)) markRange += relativeTo - relativeFrom;
   });
 
+  if (!selectionRange) return false;
+
   return markRange === selectionRange;
 }
