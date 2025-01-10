@@ -4,7 +4,7 @@ import { addListNodes } from "prosemirror-schema-list";
 const nodes = {
   doc: {
     content: "block+",
-  } as NodeSpec,
+  },
   paragraph: {
     content: "inline*",
     group: "block",
@@ -12,7 +12,7 @@ const nodes = {
     toDOM() {
       return ["p", 0];
     },
-  } as NodeSpec,
+  },
   heading: {
     content: "inline*",
     group: "block",
@@ -26,7 +26,7 @@ const nodes = {
     toDOM(node) {
       return [`h${node.attrs.level}`, 0];
     },
-  } as NodeSpec,
+  },
   figure: {
     content: "(image caption)?",
     group: "block",
@@ -36,7 +36,7 @@ const nodes = {
     toDOM() {
       return ["figure", { draggable: true }, 0];
     },
-  } as NodeSpec,
+  },
   image: {
     group: "image",
     attrs: {
@@ -63,7 +63,7 @@ const nodes = {
         { src: node.attrs.src, alt: node.attrs.alt, draggable: false },
       ];
     },
-  } as NodeSpec,
+  },
   caption: {
     content: "inline*",
     group: "caption",
@@ -71,7 +71,7 @@ const nodes = {
     toDOM() {
       return ["figcaption", 0];
     },
-  } as NodeSpec,
+  },
   hr: {
     group: "block",
     parseDOM: [
@@ -82,11 +82,40 @@ const nodes = {
     toDOM() {
       return ["hr"];
     },
-  } as NodeSpec,
+  },
   text: {
     group: "inline",
-  } as NodeSpec,
-} as const;
+  },
+  ruby: {
+    group: "inline",
+    attrs: {
+      rb: {
+        default: "",
+        validate: "string",
+      },
+      rt: {
+        default: "",
+        validate: "string",
+      },
+    },
+    atom: true,
+    inline: true,
+    parseDOM: [
+      {
+        tag: "ruby[data-rb][data-rt]",
+        getAttrs(dom) {
+          return {
+            rb: dom.getAttribute("data-rb"),
+            rt: dom.getAttribute("data-rt"),
+          };
+        },
+      },
+    ],
+    toDOM(node) {
+      return ["ruby", { "data-rb": node.attrs.rb, "data-rt": node.attrs.rt }];
+    },
+  },
+} as const satisfies Record<string, NodeSpec>;
 
 const marks = {
   bold: {
@@ -94,14 +123,14 @@ const marks = {
     toDOM() {
       return ["b", 0];
     },
-  } as MarkSpec,
+  },
   italic: {
     parseDOM: [{ tag: "i" }],
     toDOM() {
       return ["i", 0];
     },
-  } as MarkSpec,
-} as const;
+  },
+} as const satisfies Record<string, MarkSpec>;
 
 export const basicSchema = new Schema({
   nodes,

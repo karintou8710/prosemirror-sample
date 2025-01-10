@@ -49,4 +49,8 @@
   p.ProseMirror-selectednode {
     outline: 5px solid #f97316;
   }
+
+  ruby.ProseMirror-selectednode {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 }

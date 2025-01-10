@@ -4,26 +4,32 @@ import { RefObject, useEffect, useReducer, useRef, useState } from "react";
 import { createState } from "../libs/state";
 import { fileToBase64 } from "../../utils";
 import { insertImage } from "../helper/insertImage";
+import { RubyView } from "../plugins/ruby";
 
 // DOMはRefで渡されないと、参照が更新されない.レンダリング時はnullだが、useEffectでは更新されている。
 // その間のmount中にrefの参照が更新されるため.
 export default function useEditor(
   domRef: RefObject<Node>,
-  initialHtml: string,
+  initialJson: string | null,
   onChange: (html: string) => void
 ) {
   const [view, setView] = useState<EditorView | null>(null);
   const [, forceUpdate] = useReducer((v) => v + 1, Number.MIN_SAFE_INTEGER);
-  const initialHtmlRef = useRef(initialHtml);
+  const initialJsonRef = useRef(initialJson);
 
   useEffect(() => {
     if (!domRef.current) return;
 
     const pmView = new EditorView(domRef.current, {
-      state: createState(initialHtmlRef.current),
+      state: createState(initialJsonRef.current),
+      nodeViews: {
+        ruby(node) {
+          return new RubyView(node);
+        },
+      },
       dispatchTransaction(transaction) {
         pmView.updateState(pmView.state.apply(transaction));
-        onChange(pmView.dom.innerHTML);
+        onChange(JSON.stringify(pmView.state.toJSON().doc));
         forceUpdate();
       },
       handleDOMEvents: {
@@ -49,7 +55,7 @@ export default function useEditor(
     return () => {
       pmView.destroy();
     };
-  }, [onChange, initialHtmlRef, domRef]);
+  }, [onChange, initialJsonRef, domRef]);
 
   return view;
 }

@@ -8,6 +8,7 @@ import isMarkActive from "../helper/isMarkActive";
 
 import styles from "./Menu.module.css";
 import { FileInput } from "./FileInput";
+import { insertRuby } from "../helper/insertRuby";
 
 type Props = {
   view: EditorView;
@@ -63,9 +64,20 @@ export default function Menu({ view }: Props) {
           onChange={async (file) => {
             const image = await fileToBase64(file);
             insertImage(view, image, view.state.selection.from);
+            view.focus();
           }}
           className={styles.fileInput}
         />
+        <button
+          onClick={() => {
+            insertRuby(view, view.state.selection.from);
+            view.focus();
+          }}
+          className={styles.toggle}
+          style={{ background: isH3Active ? "orange" : "" }}
+        >
+          rb
+        </button>
       </div>
       <div className={styles.menuBlock} style={{ marginTop: "1rem" }}>
         <button

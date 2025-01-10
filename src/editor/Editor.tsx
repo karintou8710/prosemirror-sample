@@ -12,14 +12,14 @@ import BubbleMenu from "./components/BubbleMenu";
 import Menu from "./components/Menu";
 
 type Props = {
-  initialHtml: string;
+  initialJson: string | null;
   onChange: (html: string) => void;
 };
 
 // initialHtmlがSSRとCSRで異なる場合、Dynamic Importが必須
-export default function Editor({ initialHtml, onChange }: Props) {
+export default function Editor({ initialJson, onChange }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  const view = useEditor(ref, initialHtml, onChange);
+  const view = useEditor(ref, initialJson, onChange);
 
   return (
     <div className={styles.container}>

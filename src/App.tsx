@@ -2,11 +2,11 @@ import Editor from "./editor/Editor";
 import { useLocalStorage } from "./hooks/useLocalstorage";
 
 function App() {
-  const [html, setHtml] = useLocalStorage("html");
+  const [json, setJson] = useLocalStorage("json");
 
   return (
     <div>
-      <Editor initialHtml={html} onChange={setHtml} />
+      <Editor initialJson={json} onChange={setJson} />
     </div>
   );
 }
