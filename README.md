@@ -8,7 +8,6 @@
 - PlaceHolder
 - UniqueId
 - list
-- ふりがな
 - テーブル
 - コードブロック（ハイライト付き）
 - DragHandler
@@ -21,3 +20,4 @@
 - Caption 付き画像
 - 画像ファイル・画像の DnD
 - 見出しの先頭で削除
+- ふりがな

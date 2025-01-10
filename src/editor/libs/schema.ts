@@ -41,7 +41,7 @@ const nodes = {
     group: "image",
     attrs: {
       src: { validate: "string" },
-      alt: { validate: "string", default: null },
+      alt: { validate: "string", default: "" },
     },
     atom: true,
     draggable: false,
@@ -51,8 +51,8 @@ const nodes = {
         tag: "img[src]",
         getAttrs(dom) {
           return {
-            src: dom.getAttribute("src"),
-            alt: dom.getAttribute("alt"),
+            src: dom.getAttribute("src") ?? "",
+            alt: dom.getAttribute("alt") ?? "",
           };
         },
       },
@@ -128,6 +128,12 @@ const marks = {
     parseDOM: [{ tag: "i" }],
     toDOM() {
       return ["i", 0];
+    },
+  },
+  underline: {
+    parseDOM: [{ tag: "u" }],
+    toDOM() {
+      return ["u", 0];
     },
   },
 } as const satisfies Record<string, MarkSpec>;

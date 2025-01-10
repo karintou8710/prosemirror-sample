@@ -20,12 +20,14 @@ export default function Menu({ view }: Props) {
   const setH3 = setBlockType(schema.nodes.heading, { level: 3 });
   const toggleBold = toggleMark(schema.marks.bold);
   const toggleItalic = toggleMark(schema.marks.italic);
+  const toggleUnderline = toggleMark(schema.marks.underline);
 
   const isH1Active = isActive(view.state, schema.nodes.heading, { level: 1 });
   const isH2Active = isActive(view.state, schema.nodes.heading, { level: 2 });
   const isH3Active = isActive(view.state, schema.nodes.heading, { level: 3 });
   const isBoldActive = isMarkActive(view.state, schema.marks.bold);
   const isItalicActive = isMarkActive(view.state, schema.marks.italic);
+  const isUnderlineActive = isMarkActive(view.state, schema.marks.underline);
 
   return (
     <div>
@@ -99,6 +101,16 @@ export default function Menu({ view }: Props) {
           style={{ background: isItalicActive ? "orange" : "" }}
         >
           I
+        </button>
+        <button
+          onClick={() => {
+            toggleUnderline(view.state, view.dispatch);
+            view.focus();
+          }}
+          className={styles.toggle}
+          style={{ background: isUnderlineActive ? "orange" : "" }}
+        >
+          U
         </button>
       </div>
     </div>

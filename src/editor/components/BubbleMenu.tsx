@@ -13,9 +13,11 @@ type Props = {
 export default function BubbleMenu({ view }: Props) {
   const toggleBold = toggleMark(schema.marks.bold);
   const toggleItalic = toggleMark(schema.marks.italic);
+  const toggleUnderline = toggleMark(schema.marks.underline);
 
   const isBoldActive = isMarkActive(view.state, schema.marks.bold);
   const isItalicActive = isMarkActive(view.state, schema.marks.italic);
+  const isUnderlineActive = isMarkActive(view.state, schema.marks.underline);
 
   return (
     <BubbleMenuBase view={view} className={styles.bubbleMenu}>
@@ -37,7 +39,15 @@ export default function BubbleMenu({ view }: Props) {
       >
         I
       </button>
-      <button>C</button>
+      <button
+        onClick={() => {
+          toggleUnderline(view.state, view.dispatch);
+          view.focus();
+        }}
+        style={{ background: isUnderlineActive ? "orange" : "" }}
+      >
+        U
+      </button>
       <button>L</button>
     </BubbleMenuBase>
   );
