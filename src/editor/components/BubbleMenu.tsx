@@ -15,11 +15,13 @@ export default function BubbleMenu({ view }: Props) {
   const toggleItalic = toggleMark(schema.marks.italic);
   const toggleUnderline = toggleMark(schema.marks.underline);
   const toggleStrike = toggleMark(schema.marks.strike);
+  const toggleCode = toggleMark(schema.marks.code);
 
   const isBoldActive = isMarkActive(view.state, schema.marks.bold);
   const isItalicActive = isMarkActive(view.state, schema.marks.italic);
   const isUnderlineActive = isMarkActive(view.state, schema.marks.underline);
   const isStrikeActive = isMarkActive(view.state, schema.marks.strike);
+  const isCodeActive = isMarkActive(view.state, schema.marks.code);
 
   return (
     <BubbleMenuBase view={view} className={styles.bubbleMenu}>
@@ -59,6 +61,16 @@ export default function BubbleMenu({ view }: Props) {
         style={{ background: isStrikeActive ? "orange" : "" }}
       >
         S
+      </button>
+      <button
+        onClick={() => {
+          toggleCode(view.state, view.dispatch);
+          view.focus();
+        }}
+        className={styles.toggle}
+        style={{ background: isCodeActive ? "orange" : "" }}
+      >
+        C
       </button>
     </BubbleMenuBase>
   );

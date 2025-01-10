@@ -42,6 +42,14 @@
     text-align: center;
   }
 
+  code {
+    color: #ef4444;
+    background-color: #e2e8f0;
+    caret-color: black;
+    padding: 0 0.3rem;
+    font-size: 14px;
+  }
+
   figure.ProseMirror-selectednode > img,
   h1.ProseMirror-selectednode,
   h2.ProseMirror-selectednode,
