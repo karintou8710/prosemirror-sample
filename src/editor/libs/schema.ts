@@ -136,6 +136,12 @@ const marks = {
       return ["u", 0];
     },
   },
+  strike: {
+    parseDOM: [{ tag: "s" }],
+    toDOM() {
+      return ["s", 0];
+    },
+  },
 } as const satisfies Record<string, MarkSpec>;
 
 export const basicSchema = new Schema({

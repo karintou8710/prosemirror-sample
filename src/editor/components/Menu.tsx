@@ -21,6 +21,7 @@ export default function Menu({ view }: Props) {
   const toggleBold = toggleMark(schema.marks.bold);
   const toggleItalic = toggleMark(schema.marks.italic);
   const toggleUnderline = toggleMark(schema.marks.underline);
+  const toggleStrike = toggleMark(schema.marks.strike);
 
   const isH1Active = isActive(view.state, schema.nodes.heading, { level: 1 });
   const isH2Active = isActive(view.state, schema.nodes.heading, { level: 2 });
@@ -28,6 +29,7 @@ export default function Menu({ view }: Props) {
   const isBoldActive = isMarkActive(view.state, schema.marks.bold);
   const isItalicActive = isMarkActive(view.state, schema.marks.italic);
   const isUnderlineActive = isMarkActive(view.state, schema.marks.underline);
+  const isStrikeActive = isMarkActive(view.state, schema.marks.strike);
 
   return (
     <div>
@@ -111,6 +113,16 @@ export default function Menu({ view }: Props) {
           style={{ background: isUnderlineActive ? "orange" : "" }}
         >
           U
+        </button>
+        <button
+          onClick={() => {
+            toggleStrike(view.state, view.dispatch);
+            view.focus();
+          }}
+          className={styles.toggle}
+          style={{ background: isStrikeActive ? "orange" : "" }}
+        >
+          S
         </button>
       </div>
     </div>
