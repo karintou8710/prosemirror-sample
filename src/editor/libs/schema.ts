@@ -118,6 +118,12 @@ const nodes = {
 } as const satisfies Record<string, NodeSpec>;
 
 const marks = {
+  code: {
+    parseDOM: [{ tag: "code" }],
+    toDOM() {
+      return ["code", 0];
+    },
+  },
   bold: {
     parseDOM: [{ tag: "b" }],
     toDOM() {
@@ -140,12 +146,6 @@ const marks = {
     parseDOM: [{ tag: "s" }],
     toDOM() {
       return ["s", 0];
-    },
-  },
-  code: {
-    parseDOM: [{ tag: "code" }],
-    toDOM() {
-      return ["code", 0];
     },
   },
 } as const satisfies Record<string, MarkSpec>;
